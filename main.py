@@ -99,7 +99,7 @@ def index(specified=""):
             <input name="%s" type="text" />
             <input type="submit" value="送る">
         </form>
-        ''' % ("トーク履歴からGET", P_ADD, N_TEXT)
+        ''' % ("トーク内容は無いよう", P_ADD, N_TEXT)
     else:
         index()
 
@@ -110,10 +110,14 @@ def index(specified=""):
 def push(specified=""):
     if specified:
         text = easy_db_get(parse_time(specified))
+        # 通知済みフラグを立てる
+
+        # 
         return """
         <p>プッシュ画面</p>
         <p>もうすぐ[ %s ]が始まります</p>
         <br />
+        my_db.txtを空にして、フラグを立てたこととする<br />
         <p><a href="/%s">戻る</a>
         """ % (text, P_INDEX)
     else:
