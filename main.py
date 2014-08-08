@@ -64,7 +64,6 @@ def parse_time(stringtime):
 def datetime_to_string(dat):
     return dat.strftime("%Y%m%d%H%M")
 
-
 # name属性
 N_TEXT = "text"
 N_SEND_BUTTON = "send"
@@ -131,17 +130,25 @@ def push(specified=""):
         redirect("/%s"  % (P_INDEX))
 
 """
+    yu-za-karanomesse-jiwosyori
+"""
+@post("/message")
+def post_message():
+    mess = request.forms.get(N_TEXT)
+     # bangumimeiwo eru
+    if mess:
+        # fairuni touroku
+        write_message_user(mess, F_LOG)
+        reg_watch_program(mess)
+
+"""
     視聴番組通知登録
 """
-@post("/%s" % P_ADD)
-def do_send():
-    text = request.forms.get(N_TEXT)
+def reg_watch_program(title):
 
     # 視聴予約データベースに登録する
-    if easy_db_check(True):
-        print "登録: %s" % text
-        easy_db_post(text)
     #
+    
 
     redirect("/%s/%s" % (P_INDEX, datetime_to_string(datetime.datetime.now())))
 

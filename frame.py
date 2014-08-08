@@ -128,6 +128,13 @@ left: 5px;
 
 </style>
 
+<script language="JavaScript"><!--
+function reload(){
+    location.reload();
+}
+//-->
+</script>
+
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
@@ -140,7 +147,7 @@ left: 5px;
 
 
 
-<body>
+<body onLoad="setInterval('reload()', 1000*5)">
 
 <!--↓↓ここからサイトの表示部分です↓↓-->
 
@@ -166,7 +173,7 @@ TAIL = """
 
         <img src="/image/message_form1.png" alt="スタンプ">
 
-        　<form method="post" action="/add" style="display:inline;">
+        　<form method="post" action="/message" style="display:inline;">
 
             <input type="text" />　　<input type="submit" value="送信">
 
