@@ -64,6 +64,15 @@ def parse_time(stringtime):
 def datetime_to_string(dat):
     return dat.strftime("%Y%m%d%H%M")
 
+def writer_message_oner(mess,filename):
+    f = open(filename,"a")
+    f.write("0," + mess + "\n")
+    f.close()
+
+def wirte_message_partner(mess,filename):
+    f = open(filename,"a")
+    f.write("1," + mess + "\n")
+    f.close()
 
 # name属性
 N_TEXT = "text"
