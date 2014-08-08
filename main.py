@@ -44,18 +44,6 @@ def easy_db_check(res):
 
 # ------------------------------
 
-# name属性
-N_TEXT = "text"
-N_SEND_BUTTON = "send"
-
-# Page URL
-P_INDEX = "index"
-P_ADD = "add"
-P_PUSH = "push"
-
-# html
-H_INDEX = ""
-
 """
     テキストの時間をdatetimeに直す
 """
@@ -73,6 +61,19 @@ def parse_time(stringtime):
 """
 def datetime_to_string(dat):
     return dat.strftime("%Y%m%d%H%M")
+
+
+# name属性
+N_TEXT = "text"
+N_SEND_BUTTON = "send"
+
+# Page URL
+P_INDEX = "index"
+P_ADD = "add"
+P_PUSH = "push"
+
+# html
+H_INDEX = ""
 
 """
     for static file
