@@ -44,6 +44,8 @@ def easy_db_check(res):
 
 # ------------------------------
 
+F_LOG = "chat_log.txt"
+
 """
     テキストの時間をdatetimeに直す
 """
