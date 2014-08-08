@@ -9,17 +9,17 @@ class Database():
         self.connector = MySQLdb.connect(host="localhost", db="hoge", user="root", passwd="38CJADSDv49Dy7X7K2XdsgpavySzN7G6H6x", charset="utf8")
         self.cursor = self.connector.cursor()
 
-    def get_tvprogramid_from_tvtitle(title):
+    def get_tvprogramid_from_tvtitle(self, title):
         sql = "select id from tvprogram where program_name = '%s'" % title
         self.cursor.execute(sql)
         return int(self.cursor.fetchone()[0])
 
-    def insert_tvprogramid_into_notification(tvid):
+    def insert_tvprogramid_into_notification(self, tvid):
         sql = "insert into notification_reservations (tvprogram_id, status) values (%d, 0);" % tvid
         self.cursor.execute(sql)
         self.connector.commit()
 
-    def get_all_tvprogramid_from_notification(date):
+    def get_all_tvprogramid_from_notification(self, date):
         """
             YYYY-MM-DD HH:MM:SS
         """
