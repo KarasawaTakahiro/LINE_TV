@@ -10,6 +10,10 @@ import html
 import os.path
 
 # ---for test code---------------------------
+
+IKARI_START = datetime.timedelta(2014, 8, 8, 15, 40)
+
+
 """
     通知登録DBに登録されているものを返すとする
     時間を元に通知すべき（時間が過ぎているかつ、未通知の）番組名を返す
@@ -43,6 +47,18 @@ def easy_db_post(text):
 
 def easy_db_check(res):
     return res
+
+def check_push(date):
+    """
+    dated = datetime.timedelta(date.year, date.month, date.day, date.hour, date.minute, date.second)
+    nowt = datetime.now()
+    nowd = datetime.timedelta(nowt.year, nowt.month, nowt.day, nowt.hour, nowt.minute, mow.second)
+    if (dated > (IKARI_START - datetime.timedelta(minutes=15))) and (nowd < IKARI_START):
+        return True
+    else:
+        False
+    """
+    return False
 
 # ------------------------------
 
@@ -119,7 +135,7 @@ def index():
 def index(specified=""):
     if specified:
         time = parse_time(str(specified))  # 時間を変換
-        if easy_db_status(time):
+        if check_push(time):
             redirect("/%s/%s" % (P_PUSH, specified))
         src = html.get_head()
         if(os.path.exists(F_LOG)):  # ログファイルがあるか
@@ -141,22 +157,20 @@ def index(specified=""):
 @route("/%s/<specified>" % P_PUSH)
 def push(specified=""):
     if specified:
-        text = easy_db_get(parse_time(specified))
         # 通知済みフラグを立てる
 
         # 
         return """
         <p>プッシュ画面</p>
-        <p>もうすぐ[ %s ]が始まります</p>
+        <p>もうすぐ番組が始まります</p>
         <br />
-        my_db.txtを空にして、フラグを立てたこととする<br />
         <p><a href="/%s">戻る</a>
-        """ % (text, P_INDEX)
+        """ % (P_INDEX)
     else:
         redirect("/%s"  % (P_INDEX))
 
 """
-    yu-za-karanomesse-jiwosyori
+    ユーザからのメッセージを処理
 """
 @post("/message")
 def post_message():
