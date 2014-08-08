@@ -69,7 +69,7 @@ def writer_message_oner(mess,filename):
     f.write("0," + mess + "\n")
     f.close()
 def wirte_message_partner(mess,filename):
-     f = open(filename,"a")
+    f = open(filename,"a")
     f.write("1," + mess + "\n")
     f.close()
 
