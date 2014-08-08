@@ -6,7 +6,9 @@
 from bottle import run, route, post, get, request, redirect, static_file
 
 import datetime
-import html
+import html 
+import os.path
+
 # ---for test code---------------------------
 """
     通知登録DBに登録されているものを返すとする
@@ -64,14 +66,24 @@ def parse_time(stringtime):
 def datetime_to_string(dat):
     return dat.strftime("%Y%m%d%H%M")
 
-def writer_message_oner(mess,filename):
+def write_message_user(mess,filename):
     f = open(filename,"a")
     f.write("0," + mess + "\n")
     f.close()
+
 def wirte_message_partner(mess,filename):
-     f = open(filename,"a")
+    f = open(filename,"a")
     f.write("1," + mess + "\n")
     f.close()
+
+def read_messages(filename):
+    f = open(filename, "r")
+    li = []
+    text = f.readline()
+    while text:
+        li.append(text)
+        text = f.readline()
+    return li
 
 # name属性
 N_TEXT = "text"
@@ -106,13 +118,18 @@ def index():
 @route("/%s/<specified:int>" % P_INDEX)
 def index(specified=""):
     if specified:
-        time = parse_time(str(specified))
+        time = parse_time(str(specified))  # 時間を変換
         if easy_db_status(time):
             redirect("/%s/%s" % (P_PUSH, specified))
-
         src = html.get_head()
+        if(os.path.exists(F_LOG)):  # ログファイルがあるか
+            for li in read_messages(F_LOG):
+                status, mess = li.split(",")
+                if(status == 1):
+                    src += html.get_say_self(mess)
+                else:
+                    src += html.get_say_partner(mess)
         src += html.get_tail()
-        
 
         return src
     else:
@@ -149,7 +166,6 @@ def post_message():
         # fairuni touroku
         write_message_user(mess, F_LOG)
         reg_watch_program(mess)
-        redirect("/index")
 
 """
     視聴番組通知登録
@@ -159,8 +175,7 @@ def reg_watch_program(title):
     # 視聴予約データベースに登録する
     #
     
-
-    redirect("/%s/%s" % (P_INDEX, datetime_to_string(datetime.datetime.now())))
+    redirect("/%s" % (P_INDEX))
 
 run(host="localhost", port=8080)
 

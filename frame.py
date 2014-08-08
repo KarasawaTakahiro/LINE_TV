@@ -129,8 +129,8 @@ left: 5px;
 </style>
 
 <script language="JavaScript"><!--
-function reload(){
-    location.reload();
+function redirect(){
+    location.href="/index";
 }
 //-->
 </script>
@@ -147,7 +147,7 @@ function reload(){
 
 
 
-<body onLoad="setInterval('reload()', 1000*5)">
+<body onLoad="setInterval('redirect()', 1000*5)">
 
 <!--↓↓ここからサイトの表示部分です↓↓-->
 
@@ -169,13 +169,16 @@ function reload(){
 '''
 
 TAIL = """
+</td></tr>
+</table>
+        
         </div>
 
         <img src="/image/message_form1.png" alt="スタンプ">
 
         　<form method="post" action="/message" style="display:inline;">
 
-            <input type="text" />　　<input type="submit" value="送信">
+            <input type="text" name="text"/>　　<input type="submit" value="送信">
 
         </form>
 
@@ -190,7 +193,7 @@ SELF_FRONT = """
 <!-- 自分のLINE発言っぽいやつ -->
 <p>
 <div class="wrapper">
-    <div class="boxa">
+    <div class="boxb">
     """
 
 SELF_TAIL = """
@@ -202,16 +205,14 @@ SELF_TAIL = """
 
 
 PARTNER_FRONT = """
-<!-- 自分のLINE発言っぽいやつ -->
 <p>
 <div class="wrapper">
-    <div class="boxb">
+    <div class="boxa">
     """
 
 PARTNER_TAIL = """
     </div>
 </div>
 </p>
-<!-- 自分のLINE発言っぽいやつ ここまで -->
 """
 
