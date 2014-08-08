@@ -1,0 +1,53 @@
+<!-- <head>内に以下のCSSを記述 ここから -->
+<style type="text/css">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    padding: 15px;
+    width: 320px;
+    position: relative;
+    overflow: hidden;
+} 
+
+.boxa{
+    position: relative;
+    float:right;
+    width: 250px;
+    background: #6f0;
+    margin-bottom: 1px;
+    border: 1px solid #0f0;
+}
+
+.boxa:after {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(116, 213, 19, 0);
+    border-left-color: #6f0;
+    border-width: 10px;
+    margin-top: -10px;
+}
+</style>
+<!-- <head>内に以下のCSSを記述 ここから -->
+
+<!-- 文字化け防止 -->
+<meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
+
+
+<!-- 自分のLINE発言っぽいやつ -->
+<p>
+<div class="wrapper">
+    <div class="boxa">
+        これが自分の発言です。テストテストテストテスト
+    </div>
+</div>
+</p>
+<!-- 自分のLINE発言っぽいやつ ここまで -->

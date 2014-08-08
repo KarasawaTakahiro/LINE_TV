@@ -3,10 +3,10 @@
 
 # main file
 
-from bottle import run, route, post, get, request, redirect
+from bottle import run, route, post, get, request, redirect, static_file
 
 import datetime
-
+import html
 # ---for test code---------------------------
 """
     通知登録DBに登録されているものを返すとする
@@ -65,6 +65,7 @@ def parse_time(stringtime):
         day = stringtime[6:8]
         minute = stringtime[8:10]
         sec = stringtime[10:12]
+        print year, month, day, minute, sec
         return datetime.datetime(int(year), int(month), int(day), int(minute), int(sec))
 
 """
@@ -72,6 +73,13 @@ def parse_time(stringtime):
 """
 def datetime_to_string(dat):
     return dat.strftime("%Y%m%d%H%M")
+
+"""
+    for static file
+"""
+@route("/image/<filename>")
+def static(filename):
+    return static_file(filename, root="./image")
 
 """
     生のトップ画面
@@ -84,22 +92,18 @@ def index():
 """
     時間を指定したトーク画面
 """
-@route("/%s/<specified>" % P_INDEX)
+@route("/%s/<specified:int>" % P_INDEX)
 def index(specified=""):
     if specified:
-        time = parse_time(specified)
+        time = parse_time(str(specified))
         if easy_db_status(time):
             redirect("/%s/%s" % (P_PUSH, specified))
 
-        return '''
-        <p>TopPage</p>
-        %s
-        <br />
-        <form action="/%s" method="post">
-            <input name="%s" type="text" />
-            <input type="submit" value="送る">
-        </form>
-        ''' % ("トーク内容は無いよう", P_ADD, N_TEXT)
+        src = html.get_head()
+        src += html.get_tail()
+        
+
+        return src
     else:
         index()
 
@@ -138,6 +142,8 @@ def do_send():
 
     redirect("/%s/%s" % (P_INDEX, datetime_to_string(datetime.datetime.now())))
 
+import os
+print os.getcwd()
 
 run(host="localhost", port=8080)
 
