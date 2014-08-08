@@ -140,6 +140,7 @@ def post_message():
         # fairuni touroku
         write_message_user(mess, F_LOG)
         reg_watch_program(mess)
+        redirect("/index")
 
 """
     視聴番組通知登録
@@ -151,9 +152,6 @@ def reg_watch_program(title):
     
 
     redirect("/%s/%s" % (P_INDEX, datetime_to_string(datetime.datetime.now())))
-
-import os
-print os.getcwd()
 
 run(host="localhost", port=8080)
 
